@@ -1,11 +1,13 @@
 package com.example.two.controller;
 
 
+import com.example.two.domain.Test;
+import com.example.two.service.TestService;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /*
      @RestController  一般用来返回字符串
@@ -21,6 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TestController {
 
+
+    @Resource
+    private TestService testService;
 
     // :后边是默认的配置值
     @Value("${test.hello:TEST}")
@@ -48,6 +53,9 @@ public class TestController {
     public String helloPost(String name){
         return "hello, " + name;
     }
+
+    @GetMapping("/test/list")
+    public List<Test> list() { return testService.list(); }
 
 }
 

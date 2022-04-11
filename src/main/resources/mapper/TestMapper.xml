@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.two.mapper.TestMapper" >
+
+<!--    id是mapper层的方法名，namespace是类名，resultType是类。-->
+    <select id="list" resultType="com.example.two.domain.Test">
+        select `id`, `name`, `password` from `kg`.`test`
+    </select>
+
+</mapper>

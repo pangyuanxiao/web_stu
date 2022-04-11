@@ -1,5 +1,6 @@
 package com.example.two.conf;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +17,10 @@ import org.springframework.core.env.Environment;
 
 @ComponentScan("com.example.two")
 @SpringBootApplication
+
+//扫描mapper
+@MapperScan("com.example.two.mapper")
+
 public class TwoApplication {
     private static final Logger LOG = LoggerFactory.getLogger(TwoApplication.class);
 
