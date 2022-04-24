@@ -48,7 +48,7 @@
     <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
 
 
-      <a-list item-layout="vertical" size="large" :grid="{gutter: 20 , column : 3}" :pagination="pagination" :data-source="ebooks">
+      <a-list item-layout="vertical" size="large" :grid="{gutter: 20 , column : 3}"  :data-source="ebooks">
 
         <template #renderItem="{ item }">
           <a-list-item key="item.name">
@@ -115,7 +115,7 @@ export default defineComponent({
     //相当于mount
     onMounted(()=>{
       console.log("mount")
-      axios.get("http://127.0.0.1:8881/ebook/list?name=Spring").then((resp) =>{
+      axios.get("http://127.0.0.1:8881/ebook/list").then((resp) =>{
         console.log(resp);
         const data = resp.data;
         ebooks.value = data.content;
@@ -149,3 +149,14 @@ export default defineComponent({
 
 });
 </script>
+
+
+<style scoped>
+.ant-avatar {
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 8%;
+  margin: 5px 0;
+}
+</style>

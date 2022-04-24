@@ -8,6 +8,7 @@ import com.example.two.req.EbookReq;
 import com.example.two.resp.EbookResp;
 import com.example.two.utils.CopyUtil;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -23,8 +24,10 @@ public class EbookService {
     public List<EbookResp> list (EbookReq rep){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
-        criteria.andNameLike("%"+rep.getName()+"%");
 
+        if(!ObjectUtils.isEmpty(rep.getName())) {
+            criteria.andNameLike("%" + rep.getName() + "%");
+        }
         //这个selectByExample相当于where语句
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
         //循环ebookList里的实体，每个都变成 EbookResp 变成 EbookResp list
