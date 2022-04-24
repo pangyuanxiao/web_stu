@@ -46,13 +46,20 @@
       </a-menu>
     </a-layout-sider>
     <a-layout-content :style="{ padding: '0 24px', minHeight: '280px' }">
-      Content
+
+      <pre>
+        Content1111111
+         {{ebooks}}
+        这是ebook2
+        {{ebooks2}}
+      </pre>
+
     </a-layout-content>
   </a-layout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent ,onMounted,ref,reactive,toRef} from 'vue';
 
 import axios from "axios";
 
@@ -61,10 +68,32 @@ export default defineComponent({
   name: 'Home',
 
   setup(){
-    console.log("lll")
-    axios.get("http://127.0.0.1:8881/ebook/list?name=Spring").then((res) =>{
-      console.log(res)
-    })
+    console.log("setup");
+    //响应式数据
+    const ebooks = ref();
+
+    //这就相当于一个对象
+    const ebooks1 = reactive({books:[]})
+
+    //相当于mount
+    onMounted(()=>{
+      console.log("mount")
+      axios.get("http://127.0.0.1:8881/ebook/list?name=Spring").then((resp) =>{
+        console.log(resp);
+        const data = resp.data;
+        ebooks.value = data.content;
+
+        ebooks1.books = data.content;
+      });
+    });
+
+    return {
+      ebooks,
+      //ebooks2就是把book1的books转成ref
+      ebooks2 : toRef(ebooks1,"books")
+    }
+
+
   }
 
 });
