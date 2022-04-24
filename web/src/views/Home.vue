@@ -53,12 +53,19 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+
+import axios from "axios";
+
 
 export default defineComponent({
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
+
+  setup(){
+    console.log("lll")
+    axios.get("http://127.0.0.1:8881/ebook/list?name=Spring").then((res) =>{
+      console.log(res)
+    })
+  }
+
 });
 </script>
