@@ -10,9 +10,7 @@
   <a-layout>
     <my-header></my-header>
     <router-view/>
-    <a-layout-footer style="text-align: center">
-      Ant Design ©2018 Created by Ant UED
-    </a-layout-footer>
+    <my-footer></my-footer>
   </a-layout>
 </template>
 
@@ -21,11 +19,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import MyHeader from '@/components/MyHeader.vue';
+import MyFooter from '@/components/MyFooter.vue';
 
 export default defineComponent({
   name: 'app',
   components: {
     MyHeader,
+    MyFooter
   },
 });
 </script>
