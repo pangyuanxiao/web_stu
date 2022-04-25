@@ -85,19 +85,7 @@ import { defineComponent ,onMounted,ref,reactive,toRef} from 'vue';
 import axios from "axios";
 
 
-//这是列表静态数据
-const listData: any = [];
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    href: 'https://www.antdv.com/',
-    title: `ant design vue part ${i}`,
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description:
-        'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content:
-        'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
+
 
 
 
@@ -115,7 +103,7 @@ export default defineComponent({
     //相当于mount
     onMounted(()=>{
       console.log("mount")
-      axios.get("http://127.0.0.1:8881/ebook/list").then((resp) =>{
+      axios.get(process.env.VUE_APP_SERVER+"/ebook/list").then((resp) =>{
         console.log(resp);
         const data = resp.data;
         ebooks.value = data.content;
@@ -130,7 +118,7 @@ export default defineComponent({
       ebooks2 : toRef(ebooks1,"books"),
 
 
-      listData,
+
       pagination: {
         onChange: (page: any) => {
           console.log(page);
