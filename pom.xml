@@ -50,7 +50,17 @@
             <version>8.0.22</version>
         </dependency>
 
-
+        <!--aop-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+        <!--这里是因为要对字段进行处理需要的跟aop无关-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.70</version>
+        </dependency>
 
     </dependencies>
 
