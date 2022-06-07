@@ -6,6 +6,7 @@ import com.example.two.domain.EbookExample;
 import com.example.two.mapper.EbookMapper;
 import com.example.two.req.EbookReq;
 import com.example.two.resp.EbookResp;
+import com.example.two.resp.PageResp;
 import com.example.two.utils.CopyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,7 +27,7 @@ public class EbookService {
 
     private EbookMapper ebookMapper;
 
-    public List<EbookResp> list (EbookReq rep){
+    public PageResp<EbookResp> list (EbookReq rep){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
@@ -34,7 +35,7 @@ public class EbookService {
             criteria.andNameLike("%" + rep.getName() + "%");
         }
         //从第一页开始，每页有三个  要注意一下这个只对最近的sql有效
-        PageHelper.startPage(1, 3);
+        PageHelper.startPage(rep.getPage(), rep.getSize());
         //这个selectByExample相当于where语句
         List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
         //循环ebookList里的实体，每个都变成 EbookResp 变成 EbookResp list
@@ -59,7 +60,12 @@ public class EbookService {
 
         List<EbookResp> respList = CopyUtil.copyList(ebookList,EbookResp.class);
 
-        return respList;
+        PageResp<EbookResp> pageResp = new PageResp();
+
+        pageResp.setTotal(pageInfo.getTotal());
+        pageResp.setList(respList);
+
+        return pageResp;
     }
 
 }
