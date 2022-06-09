@@ -68,4 +68,39 @@ public class EbookService {
         return pageResp;
     }
 
+    public List<EbookResp> all(){
+        EbookExample ebookExample = new EbookExample();
+        EbookExample.Criteria criteria = ebookExample.createCriteria();
+
+//        if(!ObjectUtils.isEmpty(rep.getName())) {
+//            criteria.andNameLike("%" + rep.getName() + "%");
+//        }
+
+        //这个selectByExample相当于where语句
+        List<Ebook> ebookList = ebookMapper.selectByExample(ebookExample);
+        //循环ebookList里的实体，每个都变成 EbookResp 变成 EbookResp list
+
+
+//        List<EbookResp> respList = new ArrayList<>();
+//        for (Ebook ebook : ebookList) {
+//            EbookResp ebookResp = new EbookResp();
+//            BeanUtils.copyProperties(ebook,ebookResp);
+//            respList.add(ebookResp);
+//        }
+
+
+
+//        使用复制工具类单个复制
+//        for (Ebook ebook : ebookList) {
+//            EbookResp resp = CopyUtil.copy(ebook,EbookResp.class);
+//            respList.add(resp);
+//        }
+
+        List<EbookResp> respList = CopyUtil.copyList(ebookList,EbookResp.class);
+
+
+
+        return respList;
+    }
+
 }

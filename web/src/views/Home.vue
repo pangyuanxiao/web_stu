@@ -80,7 +80,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent ,onMounted,ref,reactive,toRef} from 'vue';
+//import { defineComponent ,onMounted,ref,reactive,toRef} from 'vue';
+import { defineComponent ,onMounted,ref} from 'vue';
 
 import axios from "axios";
 
@@ -97,25 +98,25 @@ export default defineComponent({
     //响应式数据
     const ebooks = ref();
 
-    //这就相当于一个对象
-    const ebooks1 = reactive({books:[]})
+    /*这就相当于一个对象
+    const ebooks1 = reactive({books:[]})*/
 
     //相当于mount
     onMounted(()=>{
       console.log("mount222")
-      axios.get("/ebook/list").then((resp) =>{
+      axios.get("/ebook/list/all").then((resp) =>{
 
         const data = resp.data;
         ebooks.value = data.content;
 
-        ebooks1.books = data.content;
+        //ebooks1.books = data.content.list;
       });
     });
 
     return {
       ebooks,
-      //ebooks2就是把book1的books转成ref
-      ebooks2 : toRef(ebooks1,"books"),
+      /*ebooks2就是把book1的books转成ref
+      ebooks2 : toRef(ebooks1,"books"),*/
 
 
 

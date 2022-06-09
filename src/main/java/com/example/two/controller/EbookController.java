@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 @RestController
@@ -29,6 +30,14 @@ public class EbookController {
         PageResp<EbookResp> list = ebookService.list(rep);
         resp.setContent(list);
         return resp;
+    }
+
+    @GetMapping("/list/all")
+    public CommonResp all() {
+        CommonResp<List<EbookResp>> resp_all = new CommonResp<>();
+        List<EbookResp> list_all = ebookService.all();
+        resp_all.setContent(list_all);
+        return resp_all;
     }
 
 }
