@@ -1,13 +1,12 @@
 package com.example.two.controller;
 
-import com.example.two.req.EbookReq;
+import com.example.two.req.EbookQueryReq;
+import com.example.two.req.EbookSaveReq;
 import com.example.two.resp.CommonResp;
-import com.example.two.resp.EbookResp;
+import com.example.two.resp.EbookQueryResp;
 import com.example.two.resp.PageResp;
 import com.example.two.service.EbookService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -25,17 +24,28 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public CommonResp list(EbookReq rep) {
-        CommonResp<PageResp<EbookResp>> resp = new CommonResp<>();
-        PageResp<EbookResp> list = ebookService.list(rep);
+    public CommonResp list(EbookQueryReq rep) {
+        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
+        PageResp<EbookQueryResp> list = ebookService.list(rep);
         resp.setContent(list);
         return resp;
     }
 
+
+    @PostMapping("/save")
+    //json格式需要加注解 @RequestBody
+    public CommonResp save(@RequestBody EbookSaveReq rep) {
+        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
+        ebookService.save(rep);
+
+        return resp;
+    }
+
+
     @GetMapping("/list/all")
     public CommonResp all() {
-        CommonResp<List<EbookResp>> resp_all = new CommonResp<>();
-        List<EbookResp> list_all = ebookService.all();
+        CommonResp<List<EbookQueryResp>> resp_all = new CommonResp<>();
+        List<EbookQueryResp> list_all = ebookService.all();
         resp_all.setContent(list_all);
         return resp_all;
     }

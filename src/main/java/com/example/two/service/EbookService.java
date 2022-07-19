@@ -4,8 +4,9 @@ package com.example.two.service;
 import com.example.two.domain.Ebook;
 import com.example.two.domain.EbookExample;
 import com.example.two.mapper.EbookMapper;
-import com.example.two.req.EbookReq;
-import com.example.two.resp.EbookResp;
+import com.example.two.req.EbookQueryReq;
+import com.example.two.req.EbookSaveReq;
+import com.example.two.resp.EbookQueryResp;
 import com.example.two.resp.PageResp;
 import com.example.two.utils.CopyUtil;
 import com.github.pagehelper.PageHelper;
@@ -27,7 +28,7 @@ public class EbookService {
 
     private EbookMapper ebookMapper;
 
-    public PageResp<EbookResp> list (EbookReq rep){
+    public PageResp<EbookQueryResp> list (EbookQueryReq rep){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
@@ -58,9 +59,9 @@ public class EbookService {
 //            respList.add(resp);
 //        }
 
-        List<EbookResp> respList = CopyUtil.copyList(ebookList,EbookResp.class);
+        List<EbookQueryResp> respList = CopyUtil.copyList(ebookList, EbookQueryResp.class);
 
-        PageResp<EbookResp> pageResp = new PageResp();
+        PageResp<EbookQueryResp> pageResp = new PageResp();
 
         pageResp.setTotal(pageInfo.getTotal());
         pageResp.setList(respList);
@@ -68,7 +69,7 @@ public class EbookService {
         return pageResp;
     }
 
-    public List<EbookResp> all(){
+    public List<EbookQueryResp> all(){
         EbookExample ebookExample = new EbookExample();
         EbookExample.Criteria criteria = ebookExample.createCriteria();
 
@@ -96,11 +97,28 @@ public class EbookService {
 //            respList.add(resp);
 //        }
 
-        List<EbookResp> respList = CopyUtil.copyList(ebookList,EbookResp.class);
+        List<EbookQueryResp> respList = CopyUtil.copyList(ebookList, EbookQueryResp.class);
 
 
 
         return respList;
+    }
+
+    /*
+        保存
+     */
+    public void save (EbookSaveReq req){
+        Ebook ebook = CopyUtil.copy(req, Ebook.class);
+
+        if (ObjectUtils.isEmpty(req.getId())){
+            //new
+            ebookMapper.insert(ebook);
+        }
+        else {
+            //update
+            ebookMapper.updateByPrimaryKey(ebook);
+        }
+
     }
 
 }

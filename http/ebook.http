@@ -1,2 +1,13 @@
 
 GET http://127.0.0.1:8881/ebook/list/all
+
+###
+POST http://127.0.0.1:8881/ebook/save
+Content-Type: application/json
+
+{
+  "id": 6,
+  "name": "Flink 入门"
+}
+
+###
