@@ -5,6 +5,11 @@
     <a-layout-content
         :style="{ background: '#fff', padding: '24px', margin: 0, minHeight: '280px' }"
     >
+      <p>
+        <a-button type="primary" @click="add()" size="large">
+          新增
+        </a-button>
+      </p>
       <a-table
           :columns="columns"
           :row-key="record => record.id"
@@ -49,7 +54,7 @@
         <a-input v-model:value="ebook.category2Id" />
       </a-form-item>
       <a-form-item label="描述">
-        <a-input v-model:value="ebook.desc" type="textarea" />
+        <a-input v-model:value="ebook.description" type="textarea" />
       </a-form-item>
     </a-form>
   </a-modal>
@@ -168,6 +173,10 @@ export default defineComponent({
       modalVisible.value = true;
       ebook.value = record
     };
+    const add = () => {
+      modalVisible.value = true;
+      ebook.value = {}
+    };
 
 
     onMounted(() => {
@@ -185,6 +194,7 @@ export default defineComponent({
       handleTableChange,
 
       edit,
+      add,
       ebook,
       modalVisible,
       modalLoading,

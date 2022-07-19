@@ -9,6 +9,7 @@ import com.example.two.req.EbookSaveReq;
 import com.example.two.resp.EbookQueryResp;
 import com.example.two.resp.PageResp;
 import com.example.two.utils.CopyUtil;
+import com.example.two.utils.SnowFlake;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.slf4j.Logger;
@@ -25,8 +26,10 @@ public class EbookService {
     private static final Logger LOG =LoggerFactory.getLogger(EbookService.class);
 
     @Resource
-
     private EbookMapper ebookMapper;
+
+    @Resource
+    private SnowFlake snowFlake;
 
     public PageResp<EbookQueryResp> list (EbookQueryReq rep){
         EbookExample ebookExample = new EbookExample();
@@ -112,6 +115,7 @@ public class EbookService {
 
         if (ObjectUtils.isEmpty(req.getId())){
             //new
+            ebook.setId(snowFlake.nextId());
             ebookMapper.insert(ebook);
         }
         else {
