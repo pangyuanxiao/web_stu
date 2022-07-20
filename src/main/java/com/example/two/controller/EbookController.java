@@ -42,6 +42,16 @@ public class EbookController {
     }
 
 
+    @DeleteMapping("/delete/{id}")
+    //json格式需要加注解 @RequestBody
+    public CommonResp delete(@PathVariable Long id) {
+        CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
+        ebookService.delete(id);
+
+        return resp;
+    }
+
+
     @GetMapping("/list/all")
     public CommonResp all() {
         CommonResp<List<EbookQueryResp>> resp_all = new CommonResp<>();
