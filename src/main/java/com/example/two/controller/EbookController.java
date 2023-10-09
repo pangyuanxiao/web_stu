@@ -9,6 +9,7 @@ import com.example.two.service.EbookService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.validation.Valid;
 import java.util.List;
 
 
@@ -24,7 +25,7 @@ public class EbookController {
 
 
     @GetMapping("/list")
-    public CommonResp list(EbookQueryReq rep) {
+    public CommonResp list(@Valid EbookQueryReq rep) {
         CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
         PageResp<EbookQueryResp> list = ebookService.list(rep);
         resp.setContent(list);
@@ -34,7 +35,7 @@ public class EbookController {
 
     @PostMapping("/save")
     //json格式需要加注解 @RequestBody
-    public CommonResp save(@RequestBody EbookSaveReq rep) {
+    public CommonResp save(@Valid @RequestBody EbookSaveReq rep) {
         CommonResp<PageResp<EbookQueryResp>> resp = new CommonResp<>();
         ebookService.save(rep);
 

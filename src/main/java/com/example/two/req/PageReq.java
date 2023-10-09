@@ -1,8 +1,13 @@
 package com.example.two.req;
 
-public class PageReq {
-    private Integer page;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 
+public class PageReq {
+    @NotNull(message = "【页码】不能为空")
+    private Integer page;
+    @NotNull(message = "【每页条数】不能为空")
+    @Max(value = 10, message = "【每页条数】不能超过1000")
     private Integer size;
 
 

@@ -35,6 +35,11 @@
             <scope>test</scope>
 
         </dependency>
+<!--        validation校验-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-validation</artifactId>
+        </dependency>
 
 
         <!-- 集成mybatis-->

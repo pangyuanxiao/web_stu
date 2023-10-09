@@ -70,6 +70,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
+import { message } from 'ant-design-vue';
 import axios from 'axios';
 
 export default defineComponent({
@@ -134,11 +135,16 @@ export default defineComponent({
       }).then((response) => {
         loading.value = false;
         const data = response.data;
-        ebooks.value = data.content.list;
+        if (data.success) {
+          ebooks.value = data.content.list;
 
-        // 重置分页按钮
-        pagination.value.current = p.page;
-        pagination.value.total = data.content.total;
+          // 重置分页按钮
+          pagination.value.current = p.page;
+          pagination.value.total = data.content.total;
+        }else {
+          message.error(data.message);
+        }
+
       });
     };
 
@@ -161,14 +167,18 @@ export default defineComponent({
       modalLoading.value = true;
       axios.post("/ebook/save",ebook.value).then((response) =>{
         const data = response.data;
+        modalLoading.value = false;
         if(data.success){
           modalVisible.value = false;
-          modalLoading.value = false;
+
           //
           handleQuery({
             page: pagination.value.current,
             size: pagination.value.pageSize,
           });
+        }
+        else {
+          message.error(data.message);
         }
       });
     };
